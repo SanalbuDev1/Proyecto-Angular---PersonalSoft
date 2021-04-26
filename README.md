@@ -1,4 +1,4 @@
-Created By ´Santiago Alvarez´
+Created By 'Santiago Alvarez'
 
 # ProyectoAngularPersonalSoft
 
