@@ -1,0 +1,36 @@
+.cont1{
+  margin:10px auto;
+  border:0.5px solid black;
+  padding: 20px;
+  width: 100%;
+  height: 150vh;
+  border-radius: 20px;
+}
+
+.componentes{
+  width: 100%;
+
+  height: 200px;
+  padding: 20px;
+}
+
+h3{
+  text-align: center;
+  font-size: 40px;
+  border-bottom: 1px solid black;
+  border-top:1px solid black;
+}
+
+.ngx-pagination{
+  background-color: black;
+  padding: 10px;
+  border: 2px solid black !important;
+}
+
+i.like:hover{
+  background-color: rgba(0,0,0,0.2);
+  padding: 10px;
+  transition: 1s all;
+  border-radius: 50%;
+  cursor:pointer;
+}

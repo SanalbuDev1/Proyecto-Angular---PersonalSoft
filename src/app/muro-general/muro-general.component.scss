@@ -1,0 +1,29 @@
+i.like:hover{
+  background-color: rgba(0,0,0,0.2);
+  padding: 10px;
+  transition: 1s all;
+  border-radius: 50%;
+  cursor:pointer;
+}
+
+h3{
+  text-align: center;
+  margin:10px auto;
+  border:2px solid black;
+  background-color: rgba(0,0,0,0.8);
+  color:white;
+}
+
+.cont1{
+  border:2px solid black;
+  background-color: rgba(0,0,0,0.8);
+  color:black;
+  box-shadow: 10px 5px 5px black;
+  padding: 70px;
+  border-top-right-radius:12px ;
+}
+
+.creador{
+  padding: 2%;
+  border-bottom: 2px solid black;
+}

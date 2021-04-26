@@ -1,0 +1,210 @@
+<app-header></app-header>
+
+<div class="container cont1">
+  <div class="row">
+    <div class="col-md-1 col-md-offset-1 componentes">
+      <img [src]="avatar" alt="" width="50px" height="50px">
+    </div>
+    <div class="col-md-3 col-md-offset-1 componentes">
+      <div class="card" style="width: 18rem;">
+        <div class="card-header">
+          Nombre: {{ nombre }}
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <h3>Post</h3>
+  <div class="card" *ngFor="let item of respuesta | paginate: { itemsPerPage: 2, currentPage: p }; let indice=index">
+    <div>
+      <div class="creador"><img [src]="item.user.avatar" alt="" width="50px" height="50px">
+        <label for="">Publicado por {{item.user.name}} fecha {{ item.user.CreatedAt | date }}</label>
+      </div>
+
+
+    <div class="row">
+      {{indice+1}}
+      <div class="col-md-3 col-md-offset-1 componentes">
+        <img src="{{item.image_url}}" alt="" width="240px" height="160px">
+      </div>
+      <div class="col-md-3 col-md-offset-1 componentes">
+        <h5 class="card-header">{{ item.CreatedAt | date}}</h5>
+        <button (click)="comentarioD(comentario,item)" class="btn btn-primary">Agregar <i class="fas fa-comments"></i>
+
+      </button>
+      </div>
+      <div class="col-md-5 col-md-offset-1 componentes">
+        <h5 class="card-header">{{ item.posted_text }}</h5>
+
+      </div>
+
+      <div class="card-body">
+
+
+         <i  (click)="like(item)" class="far fa-thumbs-up like"></i> <label *ngIf="item.reactions?.length >= 1" >{{item.reactions?.length}}</label> <label *ngIf="item.reactions?.length < 1" >0</label>
+        <button (click)="modal(content,item)" class="btn btn-primary">Ver Comentarios</button>
+
+      </div>
+    </div>
+  </div>
+
+  </div>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Publicacion</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <img src="{{postSeleccionado.image_url}}" alt="" width="100px" height="100px">
+      <p>Comentarios</p>
+      <div *ngFor="let item of postSeleccionado">
+        <div class="card" style="width: 18rem;">
+          <img src="{{ item.User.avatar }}" alt="" width="100px" height="100px">
+          <div class="card-body">
+            <p class="card-text">{{item.User.name}} : {{ item.comment }}</p>
+          </div>
+          <div class="card-body" *ngFor="let rec of item.reactions">
+            hola
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+
+      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Close</button>
+    </div>
+  </ng-template>
+
+  <ng-template #postSave let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Publicacion</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+
+      <form (ngSubmit)="crearPostForm(form)" #form="ngForm">
+        <div class="container">
+          <div class="login-wrapper">
+            <h4>Post</h4>
+            <div class="form-group">
+             </div>
+            <div class="form-group">
+              <label class="col-2 col-form-label">Texto</label>
+              <div class="col-10">
+                <input
+                  type="text"
+                  name="email"
+
+                  class="form-control"
+                  placeholder="Texto"
+                  required
+                  [(ngModel)]="datos.posted_text"
+                  #posted_text="ngModel"
+                  [class.is-invalid]="posted_text.invalid && posted_text.touched"
+                >
+                <small
+                  class="form-text text-danger"
+                  *ngIf="posted_text.touched && posted_text.invalid"
+                >posted_text inválido</small>
+              </div>
+            </div>
+
+          <div class="form-group">
+            <label>Imagen</label>
+            <input
+            type="text"
+            name="imagen"
+            class="form-control"
+            placeholder="imagen"
+            required
+            [(ngModel)]="datos.image_url"
+            #image_url="ngModel"
+            [class.is-invalid]="image_url.invalid && image_url.touched"
+            >
+          </div>
+          <small
+          class="form-text text-danger"
+          *ngIf="image_url.touched && image_url.invalid"
+        >image_url invalido</small>
+
+          <div class="col-12" style="margin-top: 20px">
+            <button type="submit" class="btn btn-primary" style="margin-right: 10px">Crear post</button>
+            <button type="reset" class="btn btn-danger">Limpiar</button>
+          </div>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+
+    <div class="modal-footer">
+
+      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Close</button>
+    </div>
+  </ng-template>
+
+  <ng-template #comentario let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Publicacion</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="crearComentario(form)" #form="ngForm">
+        <div class="container">
+          <div class="login-wrapper">
+            <h4>Comentario</h4>
+
+
+
+          <div class="form-group">
+            <label>Texto</label>
+            <input
+            type="text"
+            name="coment"
+            class="form-control"
+            placeholder="Comentario"
+            required
+            [(ngModel)]="datosComentario.comment"
+            #coment="ngModel"
+            [class.is-invalid]="coment.invalid && coment.touched"
+            >
+          </div>
+          <small
+          class="form-text text-danger"
+          *ngIf="coment.touched && coment.invalid"
+        >comentario invalido</small>
+
+          <div class="col-12" style="margin-top: 20px">
+            <button type="submit" class="btn btn-primary" style="margin-right: 10px">Crear Comentario</button>
+            <button type="reset" class="btn btn-danger">Limpiar</button>
+          </div>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+
+    <div class="modal-footer">
+
+      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Close</button>
+    </div>
+  </ng-template>
+</div>
+
+
