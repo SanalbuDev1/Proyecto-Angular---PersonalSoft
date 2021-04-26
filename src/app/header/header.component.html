@@ -29,9 +29,9 @@
           </div>
         </div>
       </li>
-      <li class="nav-item"><a href="" routerLink="/muro" class="nav-link font-weight-bold text-uppercase">Muro Propio</a></li>
-      <li class="nav-item"><a href="" routerLink="/muroGeneral" class="nav-link font-weight-bold text-uppercase">Muro General</a></li>
-      <li class="nav-item"><a href="" (click)="cerrar()" class="nav-link font-weight-bold text-uppercase">Cerrar Sesion</a></li>
+      <li class="nav-item"><a href="" *ngIf="booleanD()" routerLink="/muro" class="nav-link font-weight-bold text-uppercase">Muro Propio</a></li>
+      <li class="nav-item"><a href="" *ngIf="booleanD()" routerLink="/muroGeneral" class="nav-link font-weight-bold text-uppercase">Muro General</a></li>
+      <li class="nav-item"><a href="" (click)="cerrar()" *ngIf="booleanD()" class="nav-link font-weight-bold text-uppercase">Cerrar Sesion</a></li>
     </ul>
   </div>
 </nav>

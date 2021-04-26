@@ -18,4 +18,12 @@ export class HeaderComponent implements OnInit {
     this.sessionStorage.borrarSession();
   }
 
+  booleanD(): boolean{
+    if(this.sessionStorage.obtenerToken()){
+      return true
+    }else{
+      return false;
+    }
+  }
+
 }
